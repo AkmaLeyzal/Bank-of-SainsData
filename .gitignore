@@ -163,3 +163,4 @@ cython_debug/
 
 key.key
 config.enc
+receipts/

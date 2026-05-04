@@ -51,7 +51,7 @@ class BankSainsData:
         self.bsd.state('zoomed')
         self.bsd.attributes('-fullscreen', True)
 
-        bg_image = Image.open("images\Frame 25 (2).png")
+        bg_image = Image.open("images/Frame 25 (2).png")
         resize_imge = bg_image.resize((1280, 720))
 
         self.photo = ImageTk.PhotoImage(resize_imge)
@@ -72,7 +72,7 @@ class BankSainsData:
             self.frame_quit = tk.Frame(self.bsd)
             self.frame_quit.place(x=380, y=270)
 
-            bg3_image = Image.open("images\Frame 52.png")
+            bg3_image = Image.open("images/Frame 52.png")
             resize_image = bg3_image.resize((520, 226))
             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -234,7 +234,7 @@ class BankSainsData:
         myappid = 'mycompany.myproduct.subproduct.version'
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
-        icon_path = os.path.join(os.path.dirname(application_path), "images\BSDLogo.ico")
+        icon_path = os.path.join(os.path.dirname(application_path), "images/BSDLogo.ico")
         self.bsd.iconbitmap(default=icon_path)
 
     def forgot(self):
@@ -242,7 +242,7 @@ class BankSainsData:
         self.forgot.title('BSD')
         self.forgot.geometry('1280x720')
         self.forgot.attributes('-fullscreen', True)
-        bg_image = Image.open("images\Frame 58.png")
+        bg_image = Image.open("images/Frame 58.png")
         resize_imge = bg_image.resize((1280, 720))
         photo2 = ImageTk.PhotoImage(resize_imge)
         self.lbl2 = tk.Label(self.forgot, image=photo2)
@@ -305,7 +305,7 @@ class BankSainsData:
             if rowForgot is not None:
                 email_tujuan = rowForgot.get("email")
                 if passwordNew is not None and pinNew.isdigit() and passwordNew!='Password Baru' and len(pinNew) == 6:
-                    bg3_image = Image.open("images\Frame 59 (1).png")
+                    bg3_image = Image.open("images/Frame 59 (1).png")
                     resize_image = bg3_image.resize((355, 139))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -344,7 +344,7 @@ class BankSainsData:
                                 server.login(sender_email, app_password)
                                 server.sendmail(sender_email, [email_penerima], message.as_string())
 
-                            bg3_image = Image.open("images\Frame 60 (2).png")
+                            bg3_image = Image.open("images/Frame 60 (2).png")
                             resize_image = bg3_image.resize((211, 293))
                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -403,7 +403,7 @@ class BankSainsData:
                                     self.frame_9 = tk.Frame(self.forgot)
                                     self.frame_9.place(x=520, y=270)
 
-                                    bg3_image = Image.open("images\Frame 62.png")
+                                    bg3_image = Image.open("images/Frame 62.png")
                                     resize_image = bg3_image.resize((219, 227))
                                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -516,7 +516,7 @@ class BankSainsData:
                             self.frame_9 = tk.Frame(self.forgot)
                             self.frame_9.place(x=520, y=270)
 
-                            bg3_image = Image.open("images\Frame 63.png")
+                            bg3_image = Image.open("images/Frame 63.png")
                             resize_image = bg3_image.resize((219, 227))
                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -559,7 +559,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.forgot)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 67.png")
+                    bg3_image = Image.open("images/Frame 67.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -586,7 +586,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.forgot)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 66.png")
+                    bg3_image = Image.open("images/Frame 66.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -613,7 +613,7 @@ class BankSainsData:
                 self.frame_9 = tk.Frame(self.forgot)
                 self.frame_9.place(x=520, y=270)
 
-                bg3_image = Image.open("images\Frame 64.png")
+                bg3_image = Image.open("images/Frame 64.png")
                 resize_image = bg3_image.resize((219, 227))
                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -718,7 +718,7 @@ class BankSainsData:
         self.roots.title('BSD')
         self.roots.geometry('1280x720')
         self.roots.attributes('-fullscreen', True)
-        bg_image = Image.open("images\Frame 12 (5).png")
+        bg_image = Image.open("images/Frame 12 (5).png")
         resize_imge = bg_image.resize((1280, 720))
         photo2 = ImageTk.PhotoImage(resize_imge)
         self.lbl2 = tk.Label(self.roots, image=photo2)
@@ -750,7 +750,7 @@ class BankSainsData:
                                     RNGG = '-'.join([formatted_number[i:i + 4] for i in range(0, len(formatted_number), 4)])
                                     if RNGG:
                                         if __name__ == "__main__":
-                                            bg3_image = Image.open("images\Frame 59 (1).png")
+                                            bg3_image = Image.open("images/Frame 59 (1).png")
                                             resize_image = bg3_image.resize((355, 139))
                                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -790,7 +790,7 @@ class BankSainsData:
                                                         server.login(sender_email, app_password)
                                                         server.sendmail(sender_email, [email_penerima], message.as_string())
 
-                                                    bg3_image = Image.open("images\Frame 60 (2).png")
+                                                    bg3_image = Image.open("images/Frame 60 (2).png")
                                                     resize_image = bg3_image.resize((211, 293))
                                                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -857,7 +857,7 @@ class BankSainsData:
                                                             self.frame_9 = tk.Frame(self.roots)
                                                             self.frame_9.place(x=520, y=270)
 
-                                                            bg3_image = Image.open("images\Frame 62.png")
+                                                            bg3_image = Image.open("images/Frame 62.png")
                                                             resize_image = bg3_image.resize((219, 227))
                                                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -970,7 +970,7 @@ class BankSainsData:
                                                     self.frame_9 = tk.Frame(self.roots)
                                                     self.frame_9.place(x=520, y=270)
 
-                                                    bg3_image = Image.open("images\Frame 63.png")
+                                                    bg3_image = Image.open("images/Frame 63.png")
                                                     resize_image = bg3_image.resize((219, 227))
                                                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1013,7 +1013,7 @@ class BankSainsData:
                                     self.frame_9 = tk.Frame(self.roots)
                                     self.frame_9.place(x=520, y=270)
 
-                                    bg3_image = Image.open("images\Frame 32.png")
+                                    bg3_image = Image.open("images/Frame 32.png")
                                     resize_image = bg3_image.resize((219, 227))
                                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1040,7 +1040,7 @@ class BankSainsData:
                                 self.frame_9 = tk.Frame(self.roots)
                                 self.frame_9.place(x=520, y=270)
 
-                                bg3_image = Image.open("images\Frame 56.png")
+                                bg3_image = Image.open("images/Frame 56.png")
                                 resize_image = bg3_image.resize((219, 227))
                                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1068,7 +1068,7 @@ class BankSainsData:
                                 self.frame_9 = tk.Frame(self.roots)
                                 self.frame_9.place(x=520, y=270)
 
-                                bg3_image = Image.open("images\Frame 31.png")
+                                bg3_image = Image.open("images/Frame 31.png")
                                 resize_image = bg3_image.resize((219, 227))
                                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1095,7 +1095,7 @@ class BankSainsData:
                             self.frame_9 = tk.Frame(self.roots)
                             self.frame_9.place(x=520, y=270)
 
-                            bg3_image = Image.open("images\Frame 29.png")
+                            bg3_image = Image.open("images/Frame 29.png")
                             resize_image = bg3_image.resize((219, 227))
                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1122,7 +1122,7 @@ class BankSainsData:
                         self.frame_9 = tk.Frame(self.roots)
                         self.frame_9.place(x=520, y=270)
 
-                        bg3_image = Image.open("images\Frame 28.png")
+                        bg3_image = Image.open("images/Frame 28.png")
                         resize_image = bg3_image.resize((219, 227))
                         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1149,7 +1149,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.roots)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 27.png")
+                    bg3_image = Image.open("images/Frame 27.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1176,7 +1176,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.roots)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 68.png")
+                    bg3_image = Image.open("images/Frame 68.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1215,7 +1215,7 @@ class BankSainsData:
                             self.frameSNK2 = tk.Frame(self.roots)
                             self.frameSNK2.place(x=380,y=60)
 
-                            bg3_image = Image.open("images\Frame 70 (1).png")
+                            bg3_image = Image.open("images/Frame 70 (1).png")
                             resize_image = bg3_image.resize((500, 600))
                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1253,7 +1253,7 @@ class BankSainsData:
                             self.frameSNK3.destroy()
                         self.frameSNK3 = tk.Frame(self.roots)
                         self.frameSNK3.place(x=380,y=60)
-                        bg3_image = Image.open("images\Frame 73 (1).png")
+                        bg3_image = Image.open("images/Frame 73 (1).png")
                         resize_image = bg3_image.resize((500, 600))
                         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1292,7 +1292,7 @@ class BankSainsData:
                     self.frameSNK4 = tk.Frame(self.roots)
                     self.frameSNK4.place(x=380,y=60)
 
-                    bg3_image = Image.open("images\Frame 72 (1).png")
+                    bg3_image = Image.open("images/Frame 72 (1).png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1332,7 +1332,7 @@ class BankSainsData:
                 self.frameSNK5 = tk.Frame(self.roots)
                 self.frameSNK5.place(x=380,y=60)
 
-                bg3_image = Image.open("images\Frame 71 (1).png")
+                bg3_image = Image.open("images/Frame 71 (1).png")
                 resize_image = bg3_image.resize((500, 600))
                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1362,7 +1362,7 @@ class BankSainsData:
                             self.frameSNKnext5 = tk.Frame(self.roots)
                             self.frameSNKnext5.place(x=380,y=60)
 
-                            bg3_image = Image.open("images\Frame 71 (1).png")
+                            bg3_image = Image.open("images/Frame 71 (1).png")
                             resize_image = bg3_image.resize((500, 600))
                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1388,7 +1388,7 @@ class BankSainsData:
                         self.frameSNKnext4 = tk.Frame(self.roots)
                         self.frameSNKnext4.place(x=380,y=60)
 
-                        bg3_image = Image.open("images\Frame 72 (1).png")
+                        bg3_image = Image.open("images/Frame 72 (1).png")
                         resize_image = bg3_image.resize((500, 600))
                         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1428,7 +1428,7 @@ class BankSainsData:
                     self.frameSNKnext3 = tk.Frame(self.roots)
                     self.frameSNKnext3.place(x=380,y=60)
 
-                    bg3_image = Image.open("images\Frame 73 (1).png")
+                    bg3_image = Image.open("images/Frame 73 (1).png")
                     resize_image = bg3_image.resize((500, 600))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1469,7 +1469,7 @@ class BankSainsData:
                 self.frameSNKnext2 = tk.Frame(self.roots)
                 self.frameSNKnext2.place(x=380,y=60)
 
-                bg3_image = Image.open("images\Frame 70 (1).png")
+                bg3_image = Image.open("images/Frame 70 (1).png")
                 resize_image = bg3_image.resize((500, 600))
                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1507,7 +1507,7 @@ class BankSainsData:
             self.frameSNK1 = tk.Frame(self.roots)
             self.frameSNK1.place(x=380,y=60)
 
-            bg3_image = Image.open("images\Frame 69 (5).png")
+            bg3_image = Image.open("images/Frame 69 (5).png")
             resize_image = bg3_image.resize((500, 600))
             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1736,7 +1736,7 @@ class BankSainsData:
             self.frame_9 = tk.Frame(self.bsd)
             self.frame_9.place(x=520, y=270)
 
-            bg3_image = Image.open("images\Frame 33.png")
+            bg3_image = Image.open("images/Frame 33.png")
             resize_image = bg3_image.resize((219, 227))
             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1764,7 +1764,7 @@ class BankSainsData:
             self.frame_9 = tk.Frame(self.bsd)
             self.frame_9.place(x=520, y=270)
 
-            bg3_image = Image.open("images\Frame 35.png")
+            bg3_image = Image.open("images/Frame 35.png")
             resize_image = bg3_image.resize((219, 227))
             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1792,7 +1792,7 @@ class BankSainsData:
         self.mains = Toplevel(self.bsd)
         self.mains.geometry('1280x720')
         self.mains.attributes('-fullscreen', True)
-        bg3_image = Image.open("images\Frame 24 (4).png")  #Firdaini Azmi (23031554071)
+        bg3_image = Image.open("images/Frame 24 (4).png")  #Firdaini Azmi (23031554071)
         resize_imge = bg3_image.resize((1280, 720))
         photo2 = ImageTk.PhotoImage(resize_imge)
         self.lbl2 = tk.Label(self.mains, image=photo2)
@@ -1803,7 +1803,7 @@ class BankSainsData:
             self.frame_logout = tk.Frame(self.mains)
             self.frame_logout.place(x=440, y=270)
 
-            bg3_image = Image.open("images\Frame 51.png")
+            bg3_image = Image.open("images/Frame 51.png")
             resize_image = bg3_image.resize((520, 187))
             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -1961,7 +1961,7 @@ class BankSainsData:
                                         width=14,)
         self.deposit_button.place(x=212, y=380)
 
-        image_path = "images\Frame 55 (1).png"  
+        image_path = "images/Frame 55 (1).png"  
         img = Image.open(image_path)
         resize_img = img.resize((90,90))
         self.button_image_withdraw2 = ImageTk.PhotoImage(resize_img)
@@ -1972,7 +1972,7 @@ class BankSainsData:
                                          border=0)
         self.withdraw2_button.place(x=1055, y=247)
 
-        image_path = "images\Frame 54 (1).png"  
+        image_path = "images/Frame 54 (1).png"  
         img = Image.open(image_path)
         resize_img = img.resize((90,90))
         self.button_image_deposit2 = ImageTk.PhotoImage(resize_img)
@@ -1983,7 +1983,7 @@ class BankSainsData:
                                           border=0)
         self.deposit2_button.place(x=946, y=247)
         
-        img = Image.open("images\Frame 53 (1).png")
+        img = Image.open("images/Frame 53 (1).png")
         resize_img = img.resize((90,90))
         self.button_image_e_commerce2 = ImageTk.PhotoImage(resize_img)
         self.e_commerce2_button = tk.Button(self.mains,
@@ -2109,7 +2109,7 @@ class BankSainsData:
             finally:
                 frame_loadH = tk.LabelFrame(self.my_canvas)
 
-                bg3_image = Image.open("images\Frame 42.png")
+                bg3_image = Image.open("images/Frame 42.png")
                 resize_image = bg3_image.resize((320, 80))
                 photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2172,7 +2172,7 @@ class BankSainsData:
             self.frame_CH = tk.Frame(self.my_canvas)
             self.frame_CH.pack()
 
-            bg3_image = Image.open("images\Frame 42.png")
+            bg3_image = Image.open("images/Frame 42.png")
             resize_image = bg3_image.resize((320, 80))
             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2222,7 +2222,7 @@ class BankSainsData:
         self.infotf = tk.Frame(self.mains)
         self.infotf.place(x=495,y=80)
         
-        bg3_image = Image.open("images\Frame 78.png")
+        bg3_image = Image.open("images/Frame 78.png")
         resize_image = bg3_image.resize((379, 257))
         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2312,7 +2312,7 @@ class BankSainsData:
                 self.frame_transaksi_t = tk.Frame(self.mains)
                 self.frame_transaksi_t.place(x=550, y=250)
 
-                bg3_image = Image.open("images\Frame 10.png")
+                bg3_image = Image.open("images/Frame 10.png")
                 resize_image = bg3_image.resize((211, 293))
                 self.photo2 = ImageTk.PhotoImage(resize_image)
                 
@@ -2359,7 +2359,7 @@ class BankSainsData:
                 self.frame_9 = tk.Frame(self.mains)
                 self.frame_9.place(x=520, y=270)
 
-                bg3_image = Image.open("images\Frame 29.png")
+                bg3_image = Image.open("images/Frame 29.png")
                 resize_image = bg3_image.resize((219, 227))
                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2386,7 +2386,7 @@ class BankSainsData:
                 self.frame_9 = tk.Frame(self.mains)
                 self.frame_9.place(x=520, y=270)
 
-                bg3_image = Image.open("images\Frame 34.png")
+                bg3_image = Image.open("images/Frame 34.png")
                 resize_image = bg3_image.resize((219, 227))
                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2432,7 +2432,7 @@ class BankSainsData:
                             self.frame_konfirmasi = tk.Frame(self.mains)
                             self.frame_konfirmasi.place(x=420, y=200)
 
-                            bg3_image = Image.open("images\Frame 47 (2).png")
+                            bg3_image = Image.open("images/Frame 47 (2).png")
                             resize_image = bg3_image.resize((520, 302))
                             self.photo2 = ImageTk.PhotoImage(resize_image)
                             
@@ -2493,7 +2493,7 @@ class BankSainsData:
                                     self.frame_tf.destroy()
 
 
-                                bg3_image = Image.open("images\Frame 9.png")
+                                bg3_image = Image.open("images/Frame 9.png")
                                 resize_image = bg3_image.resize((211, 293))
                                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2597,7 +2597,7 @@ class BankSainsData:
                                 self.frame_9 = tk.Frame(self.mains)
                                 self.frame_9.place(x=520, y=270)
 
-                                bg3_image = Image.open("images\Frame 48.png")
+                                bg3_image = Image.open("images/Frame 48.png")
                                 resize_image = bg3_image.resize((219, 227))
                                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2624,7 +2624,7 @@ class BankSainsData:
                             self.frame_9 = tk.Frame(self.mains)
                             self.frame_9.place(x=520, y=270)
 
-                            bg3_image = Image.open("images\Frame 37.png")
+                            bg3_image = Image.open("images/Frame 37.png")
                             resize_image = bg3_image.resize((219, 227))
                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2651,7 +2651,7 @@ class BankSainsData:
                         self.frame_9 = tk.Frame(self.mains)
                         self.frame_9.place(x=520, y=270)
 
-                        bg3_image = Image.open("images\Frame 49.png")
+                        bg3_image = Image.open("images/Frame 49.png")
                         resize_image = bg3_image.resize((219, 227))
                         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2678,7 +2678,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.mains)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 36 (1).png")  #Firdaini Azmi (23031554071)
+                    bg3_image = Image.open("images/Frame 36 (1).png")  #Firdaini Azmi (23031554071)
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2705,7 +2705,7 @@ class BankSainsData:
                 self.frame_9 = tk.Frame(self.mains)
                 self.frame_9.place(x=520, y=270)
 
-                bg3_image = Image.open("images\Frame 76 (1).png")
+                bg3_image = Image.open("images/Frame 76 (1).png")
                 resize_image = bg3_image.resize((219, 227))
                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2733,7 +2733,7 @@ class BankSainsData:
                 self.frame_9 = tk.Frame(self.mains)
                 self.frame_9.place(x=520, y=270)
 
-                bg3_image = Image.open("images\Frame 22.png")
+                bg3_image = Image.open("images/Frame 22.png")
                 resize_image = bg3_image.resize((219, 227))
                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2800,7 +2800,7 @@ class BankSainsData:
                     self.frame_transaksi_p = tk.Frame(self.mains)
                     self.frame_transaksi_p.place(x=550, y=250)
 
-                    bg3_image = Image.open("images\Frame 10.png")
+                    bg3_image = Image.open("images/Frame 10.png")
                     resize_image = bg3_image.resize((211, 293))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2847,7 +2847,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.mains)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 29.png")
+                    bg3_image = Image.open("images/Frame 29.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2874,7 +2874,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.mains)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 34.png")
+                    bg3_image = Image.open("images/Frame 34.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2915,7 +2915,7 @@ class BankSainsData:
                     self.frame_konfirmasi_depo= tk.Frame(self.mains)
                     self.frame_konfirmasi_depo.place(x=420, y=200)
 
-                    bg3_image = Image.open("images\Frame 47 (2).png")
+                    bg3_image = Image.open("images/Frame 47 (2).png")
                     resize_image = bg3_image.resize((520, 302))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -2966,7 +2966,7 @@ class BankSainsData:
 
                         def leftpinDEPO():
                             self.frame_pin_d.destroy()
-                        bg3_image = Image.open("images\Frame 9.png")
+                        bg3_image = Image.open("images/Frame 9.png")
                         resize_image = bg3_image.resize((211, 293))
                         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3064,7 +3064,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.mains)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 48.png")
+                    bg3_image = Image.open("images/Frame 48.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3095,7 +3095,7 @@ class BankSainsData:
                 self.frame_9 = tk.Frame(self.mains)
                 self.frame_9.place(x=520, y=270)
 
-                bg3_image = Image.open("images\Frame 36 (1).png")  #Akmal Rizal (23031554078)
+                bg3_image = Image.open("images/Frame 36 (1).png")  #Akmal Rizal (23031554078)
                 resize_image = bg3_image.resize((219, 227))
                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3120,7 +3120,7 @@ class BankSainsData:
                 self.outbut9.place(x=175, y=7)
         self.frame_d = tk.Frame(self.mains)
         self.frame_d.place(x=420, y=200)
-        bg3_image = Image.open("images\Frame 14 (2).png")   #Akmal Rizal (23031554078)
+        bg3_image = Image.open("images/Frame 14 (2).png")   #Akmal Rizal (23031554078)
         resize_image = bg3_image.resize((450, 300))
         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3187,7 +3187,7 @@ class BankSainsData:
                     self.frame_transaksi_w = tk.Frame(self.mains)
                     self.frame_transaksi_w.place(x=550, y=250)
 
-                    bg3_image = Image.open("images\Frame 10.png")
+                    bg3_image = Image.open("images/Frame 10.png")
                     resize_image = bg3_image.resize((211, 293))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3234,7 +3234,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.mains)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 29.png")
+                    bg3_image = Image.open("images/Frame 29.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3261,7 +3261,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.mains)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 34.png")
+                    bg3_image = Image.open("images/Frame 34.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3304,7 +3304,7 @@ class BankSainsData:
                             self.frame_konfirmasi_wd= tk.Frame(self.mains)
                             self.frame_konfirmasi_wd.place(x=420, y=200)
 
-                            bg3_image = Image.open("images\Frame 47 (2).png")
+                            bg3_image = Image.open("images/Frame 47 (2).png")
                             resize_image = bg3_image.resize((520, 302))
                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3356,7 +3356,7 @@ class BankSainsData:
                                 def left_pin_wd():
                                     self.frame_pin_w.destroy()
 
-                                bg3_image = Image.open("images\Frame 9.png")
+                                bg3_image = Image.open("images/Frame 9.png")
                                 resize_image = bg3_image.resize((211, 293))
                                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3453,7 +3453,7 @@ class BankSainsData:
                             self.frame_9 = tk.Frame(self.mains)
                             self.frame_9.place(x=520, y=270)
 
-                            bg3_image = Image.open("images\Frame 48.png")
+                            bg3_image = Image.open("images/Frame 48.png")
                             resize_image = bg3_image.resize((219, 227))
                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3480,7 +3480,7 @@ class BankSainsData:
                         self.frame_9 = tk.Frame(self.mains)
                         self.frame_9.place(x=520, y=270)
 
-                        bg3_image = Image.open("images\Frame 49.png")
+                        bg3_image = Image.open("images/Frame 49.png")
                         resize_image = bg3_image.resize((219, 227))
                         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3507,7 +3507,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.mains)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 37.png")
+                    bg3_image = Image.open("images/Frame 37.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3535,7 +3535,7 @@ class BankSainsData:
                 self.frame_9 = tk.Frame(self.mains)
                 self.frame_9.place(x=520, y=270)
 
-                bg3_image = Image.open("images\Frame 36 (1).png")   #Nova Aulia Agustin (23031554022)
+                bg3_image = Image.open("images/Frame 36 (1).png")   #Nova Aulia Agustin (23031554022)
                 resize_image = bg3_image.resize((219, 227))
                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3560,7 +3560,7 @@ class BankSainsData:
                 self.outbut9.place(x=175, y=7)
         self.frame_w = tk.Frame(self.mains)
         self.frame_w.place(x=420, y=200)
-        bg3_image = Image.open("images\Frame 15 (5).png")  #Nova Aulia Agustin (23031554022)
+        bg3_image = Image.open("images/Frame 15 (5).png")  #Nova Aulia Agustin (23031554022)
         resize_image = bg3_image.resize((450, 300))
         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3588,7 +3588,7 @@ class BankSainsData:
         self.frame_e = tk.Frame(self.mains)
         self.frame_e.place(x=400, y=90)
 
-        bg3_image = Image.open("images\Frame 16 (1).png")
+        bg3_image = Image.open("images/Frame 16 (1).png")
         resize_image = bg3_image.resize((528, 628))
         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3683,7 +3683,7 @@ class BankSainsData:
                     self.frame_transaksi_p = tk.Frame(self.mains)
                     self.frame_transaksi_p.place(x=550, y=250)
 
-                    bg3_image = Image.open("images\Frame 10.png")
+                    bg3_image = Image.open("images/Frame 10.png")
                     resize_image = bg3_image.resize((211, 293))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3734,7 +3734,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.mains)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 29.png")
+                    bg3_image = Image.open("images/Frame 29.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3761,7 +3761,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.mains)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 34.png")
+                    bg3_image = Image.open("images/Frame 34.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3807,7 +3807,7 @@ class BankSainsData:
                                     self.frame_konfirmasi_pulsa= tk.Frame(self.mains)
                                     self.frame_konfirmasi_pulsa.place(x=420, y=200)
 
-                                    bg3_image = Image.open("images\Frame 47 (2).png")
+                                    bg3_image = Image.open("images/Frame 47 (2).png")
                                     resize_image = bg3_image.resize((520, 302))
                                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3862,7 +3862,7 @@ class BankSainsData:
                                         def leftP():
                                             self.frame_pin_p.destroy()
 
-                                        bg3_image = Image.open("images\Frame 9.png")
+                                        bg3_image = Image.open("images/Frame 9.png")
                                         resize_image = bg3_image.resize((211, 293))
                                         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3957,7 +3957,7 @@ class BankSainsData:
                                     self.frame_9 = tk.Frame(self.mains)
                                     self.frame_9.place(x=520, y=270)
 
-                                    bg3_image = Image.open("images\Frame 21.png")
+                                    bg3_image = Image.open("images/Frame 21.png")
                                     resize_image = bg3_image.resize((219, 227))
                                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -3984,7 +3984,7 @@ class BankSainsData:
                                 self.frame_9 = tk.Frame(self.mains)
                                 self.frame_9.place(x=520, y=270)
 
-                                bg3_image = Image.open("images\Frame 41.png")
+                                bg3_image = Image.open("images/Frame 41.png")
                                 resize_image = bg3_image.resize((219, 227))
                                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4011,7 +4011,7 @@ class BankSainsData:
                             self.frame_9 = tk.Frame(self.mains)
                             self.frame_9.place(x=520, y=270)
 
-                            bg3_image = Image.open("images\Frame 48.png")
+                            bg3_image = Image.open("images/Frame 48.png")
                             resize_image = bg3_image.resize((219, 227))
                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4038,7 +4038,7 @@ class BankSainsData:
                         self.frame_9 = tk.Frame(self.mains)
                         self.frame_9.place(x=520, y=270)
 
-                        bg3_image = Image.open("images\Frame 49.png")
+                        bg3_image = Image.open("images/Frame 49.png")
                         resize_image = bg3_image.resize((219, 227))
                         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4065,7 +4065,7 @@ class BankSainsData:
                         self.frame_9 = tk.Frame(self.mains)
                         self.frame_9.place(x=520, y=270)
 
-                        bg3_image = Image.open("images\Frame 37.png")
+                        bg3_image = Image.open("images/Frame 37.png")
                         resize_image = bg3_image.resize((219, 227))
                         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4092,7 +4092,7 @@ class BankSainsData:
                 self.frame_9 = tk.Frame(self.mains)
                 self.frame_9.place(x=520, y=270)
 
-                bg3_image = Image.open("images\Frame 36 (1).png")  #Muhammad Fabyan Putroagung (23031554029)
+                bg3_image = Image.open("images/Frame 36 (1).png")  #Muhammad Fabyan Putroagung (23031554029)
                 resize_image = bg3_image.resize((219, 227))
                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4118,7 +4118,7 @@ class BankSainsData:
 
         self.frame_p = tk.Frame(self.mains)
         self.frame_p.place(x=400, y=90)
-        bg3_image = Image.open("images\Frame 17 (2).png")       #Muhammad Fabyan Putroagung (23031554029)
+        bg3_image = Image.open("images/Frame 17 (2).png")       #Muhammad Fabyan Putroagung (23031554029)
         resize_image = bg3_image.resize((520, 620))
         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4248,7 +4248,7 @@ class BankSainsData:
                     self.frame_transaksi_l = tk.Frame(self.mains)
                     self.frame_transaksi_l.place(x=550, y=250)
 
-                    bg3_image = Image.open("images\Frame 10.png")
+                    bg3_image = Image.open("images/Frame 10.png")
                     resize_image = bg3_image.resize((211, 293))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4304,7 +4304,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.mains)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 29.png")
+                    bg3_image = Image.open("images/Frame 29.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4331,7 +4331,7 @@ class BankSainsData:
                     self.frame_9 = tk.Frame(self.mains)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 34.png")
+                    bg3_image = Image.open("images/Frame 34.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4376,7 +4376,7 @@ class BankSainsData:
                                         self.frame_konfirmasi_listrik= tk.Frame(self.mains)
                                         self.frame_konfirmasi_listrik.place(x=420, y=200)
 
-                                        bg3_image = Image.open("images\Frame 47 (2).png")
+                                        bg3_image = Image.open("images/Frame 47 (2).png")
                                         resize_image = bg3_image.resize((520, 302))
                                         self.photo2 = ImageTk.PhotoImage(resize_image)   
 
@@ -4430,7 +4430,7 @@ class BankSainsData:
                                             def leftL():
                                                 self.frame_pin_l.destroy()
 
-                                            bg3_image = Image.open("images\Frame 9.png")
+                                            bg3_image = Image.open("images/Frame 9.png")
                                             resize_image = bg3_image.resize((211, 293))
                                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4526,7 +4526,7 @@ class BankSainsData:
                                     self.frame_9 = tk.Frame(self.mains)
                                     self.frame_9.place(x=520, y=270)
 
-                                    bg3_image = Image.open("images\Frame 26.png")
+                                    bg3_image = Image.open("images/Frame 26.png")
                                     resize_image = bg3_image.resize((219, 227))
                                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4553,7 +4553,7 @@ class BankSainsData:
                                 self.frame_9 = tk.Frame(self.mains)
                                 self.frame_9.place(x=520, y=270)
 
-                                bg3_image = Image.open("images\Frame 26.png")
+                                bg3_image = Image.open("images/Frame 26.png")
                                 resize_image = bg3_image.resize((219, 227))
                                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4580,7 +4580,7 @@ class BankSainsData:
                             self.frame_9 = tk.Frame(self.mains)
                             self.frame_9.place(x=520, y=270)
 
-                            bg3_image = Image.open("images\Frame 48.png")
+                            bg3_image = Image.open("images/Frame 48.png")
                             resize_image = bg3_image.resize((219, 227))
                             self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4607,7 +4607,7 @@ class BankSainsData:
                         self.frame_9 = tk.Frame(self.mains)
                         self.frame_9.place(x=520, y=270)
 
-                        bg3_image = Image.open("images\Frame 49.png")
+                        bg3_image = Image.open("images/Frame 49.png")
                         resize_image = bg3_image.resize((219, 227))
                         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4619,22 +4619,22 @@ class BankSainsData:
                             self.frame_9.destroy()
 
                         self.outbut9 = tk.Button(self.frame_9,
-                                                 font=('Helvetica'),
-                                                 text="x",
-                                                 fg="#ffffff",
-                                                 bg="#FDCB7F",
-                                                 border=0,
-                                                 activebackground="#FDCB7F",
-                                                 activeforeground="#ffffff",
-                                                 cursor="hand2",
-                                                 width=3,
-                                                 command=oouutt)
+                                                font=('Helvetica'),
+                                                text="x",
+                                                fg="#ffffff",
+                                                bg="#FDCB7F",
+                                                border=0,
+                                                activebackground="#FDCB7F",
+                                                activeforeground="#ffffff",
+                                                cursor="hand2",
+                                                width=3,
+                                                command=oouutt)
                         self.outbut9.place(x=175, y=7)
                 else:
                     self.frame_9 = tk.Frame(self.mains)
                     self.frame_9.place(x=520, y=270)
 
-                    bg3_image = Image.open("images\Frame 37.png")
+                    bg3_image = Image.open("images/Frame 37.png")
                     resize_image = bg3_image.resize((219, 227))
                     self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4661,7 +4661,7 @@ class BankSainsData:
                 self.frame_9 = tk.Frame(self.mains)
                 self.frame_9.place(x=520, y=270)
 
-                bg3_image = Image.open("images\Frame 36 (1).png")   #Michael Fahrudin (23031554139)
+                bg3_image = Image.open("images/Frame 36 (1).png")   #Michael Fahrudin (23031554139)
                 resize_image = bg3_image.resize((219, 227))
                 self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4673,22 +4673,22 @@ class BankSainsData:
                     self.frame_9.destroy()
 
                 self.outbut9 = tk.Button(self.frame_9,
-                                         font=('Helvetica'),
-                                         text="x",
-                                         fg="#ffffff",
-                                         bg="#FDCB7F",
-                                         border=0,
-                                         activebackground="#FDCB7F",
-                                         activeforeground="#ffffff",
-                                         cursor="hand2",
-                                         width=3,
-                                         command=oouutt)
+                                        font=('Helvetica'),
+                                        text="x",
+                                        fg="#ffffff",
+                                        bg="#FDCB7F",
+                                        border=0,
+                                        activebackground="#FDCB7F",
+                                        activeforeground="#ffffff",
+                                        cursor="hand2",
+                                        width=3,
+                                        command=oouutt)
                 self.outbut9.place(x=175, y=7)
 
         self.frame_l = tk.Frame(self.mains)
         self.frame_l.place(x=400, y=90)
         
-        bg3_image = Image.open("images\Frame 18 (2).png")  #Michael Fahrudin (23031554139)
+        bg3_image = Image.open("images/Frame 18 (2).png")  #Michael Fahrudin (23031554139)
         resize_image = bg3_image.resize((520, 620))
         self.photo2 = ImageTk.PhotoImage(resize_image)
 
@@ -4731,44 +4731,44 @@ class BankSainsData:
         self.nominal_listrik.bind('<FocusOut>', nomlis_zoomout)
 
         self.no_token_listrik = tk.Entry(self.frame_l,
-                                     font=('Helvetica', 20),
-                                     fg="#777777",
-                                     bg="white",
-                                     width=19,
-                                     border=0
-                                     )
+                                        font=('Helvetica', 20),
+                                        fg="#777777",
+                                        bg="white",
+                                        width=19,
+                                        border=0
+                                        )
         self.no_token_listrik.place(x=118,y=279)
         self.no_token_listrik.insert(0, "No. Token Listrik")
         self.no_token_listrik.bind('<FocusIn>', tokenlis)
         self.no_token_listrik.bind('<FocusOut>', tokenlis_zoomout)
 
         self.nextButt_buyListrik = tk.Button(self.frame_l,
-                                          text='Lanjut',
-                                          font=("Helvetica", 17, 'bold'),
-                                          fg="#ffffff",
-                                          bg="#FDCB7F",
-                                          border=0,
-                                          activebackground="#FDCB7F",
-                                          activeforeground="#ffffff",
-                                          cursor="hand2",
-                                          width=21,
-                                          command=pinL
-                                          )
+                                            text='Lanjut',
+                                            font=("Helvetica", 17, 'bold'),
+                                            fg="#ffffff",
+                                            bg="#FDCB7F",
+                                            border=0,
+                                            activebackground="#FDCB7F",
+                                            activeforeground="#ffffff",
+                                            cursor="hand2",
+                                            width=21,
+                                            command=pinL
+                                            )
         self.nextButt_buyListrik.place(x=110, y=357)
 
 
         self.quit_listrik_button = tk.Button(self.frame_l,
-                                               text='X',
-                                               font=("Helvetica", 21, 'bold'),
-                                               fg="#ffffff",
-                                               bg="#FDCB7F",
-                                               border=0,
-                                               activebackground="#FDCB7F",
-                                               activeforeground="#ffffff",
-                                               cursor="hand2",
-                                               width=3,
-                                              command=quitL
-                                               )
+                                            text='X',
+                                            font=("Helvetica", 21, 'bold'),
+                                            fg="#ffffff",
+                                            bg="#FDCB7F",
+                                            border=0,
+                                            activebackground="#FDCB7F",
+                                            activeforeground="#ffffff",
+                                            cursor="hand2",
+                                            width=3,
+                                            command=quitL
+                                            )
         self.quit_listrik_button.place(x=465, y=9)
 
     def show_balance(self):
@@ -4783,17 +4783,17 @@ class BankSainsData:
                                             font=('Helvetica', 20, 'bold'),
                                             bg='white',
                                             fg="black",
-                                           width=14,
-                                           anchor='w'
+                                            width=14,
+                                            anchor='w'
                                             )
         self.show_balance_label.place(x=183, y=149)
 
     def hide_balance(self):
         self.hide_balance_label = tk.Label(self.mains,
-                                           text='● ● ● ● ●',
-                                           font=('Helvetica', 22),
-                                           bg='white',
-                                           fg="black",
+                                            text='● ● ● ● ●',
+                                            font=('Helvetica', 22),
+                                            bg='white',
+                                            fg="black",
                                             width=14,
                                             anchor="w"
                                             )

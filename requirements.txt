@@ -1,0 +1,7 @@
+# Bank of Sains Data — Dependencies
+# Instal dengan: pip install -r requirements.txt
+
+pymongo==4.6.3
+Pillow==10.3.0
+cryptography==42.0.7
+python-dotenv==1.0.1
