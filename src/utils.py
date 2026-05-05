@@ -6,10 +6,11 @@ Berisi: resource_path, dekripsi, hashing, format currency, generate resi, save r
 import os
 import sys
 import hashlib
-import random
+import secrets
 import locale
 import datetime
 from cryptography.fernet import Fernet
+from src.config import config_path
 
 # Folder struk transaksi
 RECEIPTS_DIR = "receipts"
@@ -25,10 +26,17 @@ def resource_path(relative_path: str) -> str:
 
 
 def decryption() -> str:
-    """Mendekripsi string koneksi MongoDB dari file config.enc dan key.key."""
-    with open('key.key', 'rb') as key_file:
+    """
+    Mendekripsi string koneksi MongoDB dari file config.enc dan key.key.
+
+    File-file ini dibaca dari folder config external (AppData saat mode .exe),
+    BUKAN dari dalam bundle .exe, untuk mencegah extraction oleh attacker.
+    """
+    key_path = config_path('key.key')
+    enc_path = config_path('config.enc')
+    with open(key_path, 'rb') as key_file:
         key = key_file.read()
-    with open('config.enc', 'rb') as enc_file:
+    with open(enc_path, 'rb') as enc_file:
         encrypted_password = enc_file.read()
     cipher = Fernet(key)
     return cipher.decrypt(encrypted_password).decode()
@@ -47,13 +55,13 @@ def format_currency(angka: int) -> str:
 
 def generate_resi(prefix: str) -> str:
     """Membuat nomor resi unik dengan prefix tertentu (misal 'TF', 'D', 'W')."""
-    random_number = random.randint(10000000, 99999999)
+    random_number = secrets.randbelow(90000000) + 10000000
     return f'{prefix}-{random_number}'
 
 
 def generate_card_number() -> str:
     """Membuat nomor kartu 12 digit dengan format XXXX-XXXX-XXXX."""
-    rng = random.randint(100000000000, 999999999999)
+    rng = secrets.randbelow(900000000000) + 100000000000
     formatted = f'{rng:012}'
     return '-'.join([formatted[i:i + 4] for i in range(0, len(formatted), 4)])
 

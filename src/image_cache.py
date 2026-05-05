@@ -12,6 +12,7 @@ Catatan penting:
 
 from __future__ import annotations
 from PIL import Image, ImageTk
+from src.utils import resource_path
 
 
 class ImageCache:
@@ -42,7 +43,8 @@ class ImageCache:
         """
         key = (path, size)
         if key not in cls._cache:
-            img = Image.open(path).resize(size, Image.LANCZOS)
+            abs_path = resource_path(path)
+            img = Image.open(abs_path).resize(size, Image.LANCZOS)
             cls._cache[key] = ImageTk.PhotoImage(img)
         return cls._cache[key]
 

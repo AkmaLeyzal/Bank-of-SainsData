@@ -7,6 +7,9 @@ import tkinter as tk
 from src.image_cache import ImageCache
 from src.utils import format_currency, generate_resi, current_time_date, save_receipt
 from src.widgets import PinPadDialog, AlertFrame
+from src.rate_limiter import pin_limiter
+from src.audit_log import log_pin_failed, log_pin_locked, log_transaction
+from src.validators import validate_nominal
 
 
 class DepositHandler:
@@ -17,6 +20,14 @@ class DepositHandler:
         self._db = db
         self._state = app_state
         self._frame_d = None
+
+    def _show_text_alert(self, message: str):
+        frame = tk.Frame(self._parent, bg="#e74c3c", padx=20, pady=20)
+        frame.place(x=440, y=280)
+        tk.Label(frame, text=message, font=('Helvetica', 12, 'bold'),
+                 bg="#e74c3c", fg="white").pack()
+        tk.Button(frame, text="OK", bg="#c0392b", fg="white", border=0, width=8,
+                  font=('Helvetica', 10), command=frame.destroy).pack(pady=10)
 
     def open_form(self):
         """Buka form input nominal deposit."""
@@ -51,14 +62,11 @@ class DepositHandler:
 
         my_norek = int(row.get('nomor_rekening'))
 
-        if not nominal_str.isdigit():
-            AlertFrame(self._parent, "images/Frame 36 (1).png")
-            return
+        nominal_str = self._nominal_entry.get()
 
-        nominal = int(nominal_str)
-        if nominal < 10000:
-            AlertFrame(self._parent, "images/Frame 48.png")
-            return
+        ok, nominal, msg = validate_nominal(nominal_str, min_amount=50000)
+        if not ok:
+            self._show_text_alert(msg); return
 
         angka_tf = format_currency(nominal)
         self._show_confirmation(my_norek, nominal, angka_tf)
@@ -106,20 +114,37 @@ class DepositHandler:
         password = self._state['password']
         login_name = self._state['login_username']
 
+        # Rate limiting PIN
+        if not pin_limiter.is_allowed(username):
+            remaining = pin_limiter.remaining_lockout(username)
+            frame = tk.Frame(self._parent)
+            frame.place(x=500, y=300)
+            tk.Label(frame, text=f"PIN terkunci!\nCoba lagi dalam {remaining} detik.",
+                     font=('Helvetica', 14, 'bold'),
+                     bg="#e74c3c", fg="white", padx=20, pady=15).pack()
+            tk.Button(frame, text="OK", bg="#c0392b", fg="white", border=0,
+                      width=8, command=frame.destroy).pack(pady=5)
+            return
+
         if len(pin) != 6:
             AlertFrame(self._parent, "images/Frame 29.png")
             return
 
         pin_row = self._db.find_user_by_pin(username, password, pin)
         if pin_row is None:
+            pin_limiter.record_failure(username)
+            log_pin_failed(username, "deposit")
             AlertFrame(self._parent, "images/Frame 34.png")
             return
+
+        pin_limiter.reset(username)
 
         # Eksekusi deposit
         new_balance = self._state['balance'] + nominal
         self._state['balance'] = new_balance
         self._db.set_balance(login_name, new_balance)
         self._db.insert_transaction(login_name, "Deposit", nominal)
+        log_transaction(login_name, "Deposit", nominal)
 
         if self._state.get('click_count', 0) % 2 == 1:
             self._state['show_balance_callback']()

@@ -8,6 +8,9 @@ import tkinter as tk
 from src.image_cache import ImageCache
 from src.utils import format_currency, generate_resi, current_time_date, save_receipt
 from src.widgets import PinPadDialog, AlertFrame
+from src.rate_limiter import pin_limiter
+from src.audit_log import log_pin_failed, log_pin_locked, log_transaction
+from src.validators import validate_norek, validate_nominal
 
 
 class TransferHandler:
@@ -24,6 +27,15 @@ class TransferHandler:
         self._parent = parent_frame
         self._db = db
         self._state = app_state
+
+    def _show_text_alert(self, message: str):
+        frame = tk.Frame(self._parent, bg="#e74c3c", padx=20, pady=20)
+        frame.place(x=440, y=280)
+        tk.Label(frame, text=message, font=('Helvetica', 12, 'bold'),
+                 bg="#e74c3c", fg="white").pack()
+        tk.Button(frame, text="OK", bg="#c0392b", fg="white", border=0, width=8,
+                  font=('Helvetica', 10),
+                  command=frame.destroy).pack(pady=10)
 
     def execute(self):
         """Entry point — dipanggil saat tombol Transfer diklik."""
@@ -42,6 +54,10 @@ class TransferHandler:
         target_row = self._db.find_user_by_norek(norek)
 
         # ─── Validasi ───────────────────────────────────────────────
+        ok, msg = validate_norek(norek)
+        if not ok:
+            self._show_text_alert(msg); return
+            
         if target_row is None or norek == my_norek:
             if norek == my_norek:
                 AlertFrame(self._parent, "images/Frame 76 (1).png")
@@ -49,15 +65,10 @@ class TransferHandler:
                 AlertFrame(self._parent, "images/Frame 22.png")
             return
 
-        if not nominal_str.isdigit():
-            AlertFrame(self._parent, "images/Frame 36 (1).png")
-            return
+        ok, nominal, msg = validate_nominal(nominal_str, min_amount=10000)
+        if not ok:
+            self._show_text_alert(msg); return
 
-        nominal = int(nominal_str)
-
-        if nominal < 10000:
-            AlertFrame(self._parent, "images/Frame 48.png")
-            return
         if balance < nominal:
             AlertFrame(self._parent, "images/Frame 37.png")
             return
@@ -116,14 +127,31 @@ class TransferHandler:
         password = self._state['password']
         login_name = self._state['login_username']
 
+        # Rate limiting PIN — cegah brute-force
+        if not pin_limiter.is_allowed(username):
+            remaining = pin_limiter.remaining_lockout(username)
+            frame = tk.Frame(self._parent)
+            frame.place(x=500, y=300)
+            tk.Label(frame, text=f"PIN terkunci!\nCoba lagi dalam {remaining} detik.",
+                     font=('Helvetica', 14, 'bold'),
+                     bg="#e74c3c", fg="white", padx=20, pady=15).pack()
+            tk.Button(frame, text="OK", bg="#c0392b", fg="white", border=0,
+                      width=8, command=frame.destroy).pack(pady=5)
+            log_pin_locked(username, pin_limiter.remaining_lockout(username))
+            return
+
         if len(pin) != 6:
             AlertFrame(self._parent, "images/Frame 29.png")
             return
 
         pin_row = self._db.find_user_by_pin(username, password, pin)
         if pin_row is None:
+            pin_limiter.record_failure(username)
+            log_pin_failed(username, "transfer")
             AlertFrame(self._parent, "images/Frame 34.png")
             return
+
+        pin_limiter.reset(username)
 
         # Eksekusi transfer
         new_balance = self._state['balance'] - nominal
@@ -131,6 +159,7 @@ class TransferHandler:
         self._db.set_balance(login_name, new_balance)
         self._db.increment_balance(norek_tujuan, nominal)
         self._db.insert_transaction(login_name, "Transfer", nominal)
+        log_transaction(login_name, "Transfer", nominal, norek_tujuan=norek_tujuan)
 
         # Refresh saldo jika tampil
         if self._state.get('click_count', 0) % 2 == 1:

@@ -9,6 +9,8 @@ from src.utils import hash_password
 from src.widgets import PlaceholderEntry
 from src.image_cache import ImageCache
 from src.layout import Layout
+from src.rate_limiter import login_limiter
+from src.audit_log import log_login_success, log_login_failed, log_account_locked
 
 
 class LoginView:
@@ -80,15 +82,49 @@ class LoginView:
         password_raw = self._password_entry.get_value()
         if not username or not password_raw:
             return
+
+        # Rate limiting — cegah brute-force
+        if not login_limiter.is_allowed(username):
+            remaining = login_limiter.remaining_lockout(username)
+            log_account_locked(username, remaining)
+            L = self._L
+            frame = tk.Frame(self._root)
+            frame.place(x=L.x(440), y=L.y(300))
+            tk.Label(frame, text=f"Akun terkunci. Coba lagi\ndalam {remaining} detik.",
+                     font=('Helvetica', L.font(14), 'bold'),
+                     bg="#e74c3c", fg="white", padx=20, pady=15).pack()
+            tk.Button(frame, text="OK", font=('Helvetica', L.font(12)),
+                      bg="#c0392b", fg="white", border=0, width=8,
+                      command=frame.destroy).pack(pady=5)
+            return
+
         password = hash_password(password_raw)
         row = self._db.find_user(username, password)
         if row is not None:
+            login_limiter.reset(username)  # Reset counter setelah berhasil
+            log_login_success(username)
             self._root.iconify()
             from src.views.main_view import MainView
             MainView(self._root, self._db, username=username,
                      password=password, user_data=row)
         else:
-            self._show_alert("images/Frame 45.png")
+            login_limiter.record_failure(username)  # Catat percobaan gagal
+            log_login_failed(username)
+            attempts_left = login_limiter.attempts_left(username)
+            if attempts_left > 0:
+                self._show_alert("images/Frame 45.png")
+            else:
+                remaining = login_limiter.remaining_lockout(username)
+                L = self._L
+                frame = tk.Frame(self._root)
+                frame.place(x=L.x(440), y=L.y(300))
+                tk.Label(frame, text=f"Terlalu banyak percobaan!\nAkun terkunci {remaining} detik.",
+                         font=('Helvetica', L.font(14), 'bold'),
+                         bg="#e74c3c", fg="white", padx=20, pady=15).pack()
+                tk.Button(frame, text="OK", font=('Helvetica', L.font(12)),
+                          bg="#c0392b", fg="white", border=0, width=8,
+                          command=frame.destroy).pack(pady=5)
+
 
     def _on_signup(self):
         from src.views.signup_view import SignupView

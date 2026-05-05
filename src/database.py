@@ -19,7 +19,12 @@ class Database:
 
     def __init__(self):
         conn_str = decryption()
-        self.client = MongoClient(conn_str, serverSelectionTimeoutMS=5000)
+        self.client = MongoClient(
+            conn_str,
+            serverSelectionTimeoutMS=5000,
+            tls=True,                          # Enforce TLS (anti-MITM)
+            tlsAllowInvalidCertificates=False,  # Tolak sertifikat tidak valid
+        )
         # Test koneksi — gagal cepat jika tidak ada internet
         self.client.admin.command('ping')
         db = self.client['Bank_Sains_Data']
@@ -86,6 +91,20 @@ class Database:
             {'nomor_rekening': norek},
             {'$inc': {'balance': amount}}
         )
+
+    def atomic_deduct_balance(self, username: str, amount: int) -> bool:
+        """
+        Mengurangi saldo secara atomik. Hanya berhasil jika saldo cukup.
+        Mencegah race condition pada operasi balance.
+
+        Returns:
+            True jika berhasil (saldo cukup), False jika gagal.
+        """
+        result = self._users.update_one(
+            {'username': username, 'balance': {'$gte': amount}},
+            {'$inc': {'balance': -amount}}
+        )
+        return result.modified_count > 0
 
     # ─── Transaction History Operations ─────────────────────────────────────
 

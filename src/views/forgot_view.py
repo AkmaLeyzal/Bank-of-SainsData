@@ -12,6 +12,8 @@ from src.widgets import PlaceholderEntry, AlertFrame
 from src.image_cache import ImageCache
 from src.layout import Layout
 from src.email_service import generate_otp, send_otp_email
+from src.audit_log import log_password_reset
+from src.validators import validate_username, validate_password, validate_pin, validate_norek
 
 
 class ForgotPasswordView:
@@ -76,17 +78,20 @@ class ForgotPasswordView:
         password_raw = self._entry_password.get_value()
         pin          = self._entry_pin.get_value()
 
-        if not username or not norek or not password_raw or not pin:
-            self._alert("images/Frame 64.png"); return
+        ok, msg = validate_username(username)
+        if not ok: self._show_text_alert(msg); return
+        ok, msg = validate_norek(norek)
+        if not ok: self._show_text_alert(msg); return
+        ok, msg = validate_password(password_raw)
+        if not ok: self._show_text_alert(msg); return
+        ok, msg = validate_pin(pin)
+        if not ok: self._show_text_alert(msg); return
 
         row = self._db.find_user_for_reset(username, norek)
         if row is None:
-            self._alert("images/Frame 64.png"); return
+            self._show_text_alert("Username atau Norek tidak valid."); return
 
         new_password = hash_password(password_raw)
-        pin = str(pin)
-        if not pin.isdigit() or len(pin) != 6:
-            self._alert("images/Frame 67.png"); return
 
         self._show_otp_confirm(username, new_password, pin, row.get("email"))
 
@@ -100,6 +105,16 @@ class ForgotPasswordView:
         tk.Button(frame, text="x", fg="#ffffff", bg="#FDCB7F", border=0,
                   cursor="hand2", width=3, command=frame.destroy
                   ).place(x=L.px(175), y=L.py(7))
+
+    def _show_text_alert(self, message: str):
+        L = self._L
+        frame = tk.Frame(self._window, bg="#e74c3c", padx=20, pady=20)
+        frame.place(x=L.x(440), y=L.y(280))
+        tk.Label(frame, text=message, font=('Helvetica', L.font(12), 'bold'),
+                 bg="#e74c3c", fg="white").pack()
+        tk.Button(frame, text="OK", bg="#c0392b", fg="white", border=0, width=8,
+                  font=('Helvetica', L.font(10)),
+                  command=frame.destroy).pack(pady=10)
 
     def _show_otp_confirm(self, username, new_password, pin, email_tujuan):
         L = self._L
@@ -209,6 +224,7 @@ class ForgotPasswordView:
     def _verify_otp(self, entered_otp, correct_otp, username, new_password, new_pin, frame_otp):
         if entered_otp == correct_otp:
             self._db.update_password_pin(username, new_password, new_pin)
+            log_password_reset(username)
             frame_otp.destroy()
             self._window.destroy()
             self._parent.deiconify()

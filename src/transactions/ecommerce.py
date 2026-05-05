@@ -8,6 +8,9 @@ import tkinter as tk
 from src.image_cache import ImageCache
 from src.utils import format_currency, generate_resi, current_time_date, save_receipt
 from src.widgets import PinPadDialog, AlertFrame
+from src.rate_limiter import pin_limiter
+from src.audit_log import log_pin_failed, log_pin_locked, log_transaction
+from src.validators import validate_nominal, validate_phone, validate_token_listrik
 
 
 class EcommerceHandler:
@@ -20,6 +23,14 @@ class EcommerceHandler:
         self._frame_e = None   # Frame menu utama ecommerce
         self._frame_p = None   # Frame form pulsa
         self._frame_l = None   # Frame form listrik
+
+    def _show_text_alert(self, message: str):
+        frame = tk.Frame(self._parent, bg="#e74c3c", padx=20, pady=20)
+        frame.place(x=440, y=280)
+        tk.Label(frame, text=message, font=('Helvetica', 12, 'bold'),
+                 bg="#e74c3c", fg="white").pack()
+        tk.Button(frame, text="OK", bg="#c0392b", fg="white", border=0, width=8,
+                  font=('Helvetica', 10), command=frame.destroy).pack(pady=10)
 
     # ─── Menu Ecommerce ──────────────────────────────────────────────────────
 
@@ -157,16 +168,33 @@ class EcommerceHandler:
         password = self._state['password']
         login_name = self._state['login_username']
 
+        # Rate limiting PIN
+        if not pin_limiter.is_allowed(username):
+            remaining = pin_limiter.remaining_lockout(username)
+            frame = tk.Frame(self._parent)
+            frame.place(x=500, y=300)
+            tk.Label(frame, text=f"PIN terkunci!\nCoba lagi dalam {remaining} detik.",
+                     font=('Helvetica', 14, 'bold'),
+                     bg="#e74c3c", fg="white", padx=20, pady=15).pack()
+            tk.Button(frame, text="OK", bg="#c0392b", fg="white", border=0,
+                      width=8, command=frame.destroy).pack(pady=5)
+            return
+
         if len(pin) != 6:
             AlertFrame(self._parent, "images/Frame 29.png"); return
         pin_row = self._db.find_user_by_pin(username, password, pin)
         if pin_row is None:
+            pin_limiter.record_failure(username)
+            log_pin_failed(username, "pulsa")
             AlertFrame(self._parent, "images/Frame 34.png"); return
+
+        pin_limiter.reset(username)
 
         new_balance = self._state['balance'] - nominal
         self._state['balance'] = new_balance
         self._db.set_balance(login_name, new_balance)
         self._db.insert_transaction(login_name, "Pulsa", nominal)
+        log_transaction(login_name, "Pulsa", nominal)
 
         if self._state.get('click_count', 0) % 2 == 1:
             self._state['show_balance_callback']()
@@ -302,11 +330,27 @@ class EcommerceHandler:
         password = self._state['password']
         login_name = self._state['login_username']
 
+        # Rate limiting PIN
+        if not pin_limiter.is_allowed(username):
+            remaining = pin_limiter.remaining_lockout(username)
+            frame = tk.Frame(self._parent)
+            frame.place(x=500, y=300)
+            tk.Label(frame, text=f"PIN terkunci!\nCoba lagi dalam {remaining} detik.",
+                     font=('Helvetica', 14, 'bold'),
+                     bg="#e74c3c", fg="white", padx=20, pady=15).pack()
+            tk.Button(frame, text="OK", bg="#c0392b", fg="white", border=0,
+                      width=8, command=frame.destroy).pack(pady=5)
+            return
+
         if len(pin) != 6:
             AlertFrame(self._parent, "images/Frame 29.png"); return
         pin_row = self._db.find_user_by_pin(username, password, pin)
         if pin_row is None:
+            pin_limiter.record_failure(username)
+            log_pin_failed(username, "listrik")
             AlertFrame(self._parent, "images/Frame 34.png"); return
+
+        pin_limiter.reset(username)
 
         # Generate token listrik
         token_number = random.randint(0, 99999999999999999999)

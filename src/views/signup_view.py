@@ -12,6 +12,9 @@ from src.widgets import PlaceholderEntry
 from src.image_cache import ImageCache
 from src.layout import Layout
 from src.email_service import generate_otp, send_otp_email
+from src.audit_log import log_signup
+from src.validators import (validate_username, validate_password, validate_pin,
+                            validate_norek, validate_email, validate_nominal)
 
 
 class SignupView:
@@ -176,6 +179,16 @@ class SignupView:
                   cursor="hand2", width=3,
                   command=frame.destroy).place(x=L.px(175), y=L.py(7))
 
+    def _show_text_alert(self, message: str):
+        L = self._L
+        frame = tk.Frame(self._window, bg="#e74c3c", padx=20, pady=20)
+        frame.place(x=L.x(440), y=L.y(280))
+        tk.Label(frame, text=message, font=('Helvetica', L.font(12), 'bold'),
+                 bg="#e74c3c", fg="white").pack()
+        tk.Button(frame, text="OK", bg="#c0392b", fg="white", border=0, width=8,
+                  font=('Helvetica', L.font(10)),
+                  command=frame.destroy).pack(pady=10)
+
     def _on_signup(self):
         username     = self._entries["Username"].get_value()
         email        = self._entries["Email"].get_value()
@@ -185,18 +198,31 @@ class SignupView:
         depo         = self._entries["Deposit Min. 150000"].get_value()
 
         if not self._checkbox_var.get():
-            self._alert("images/Frame 43.png"); return
-        if not username or self._db.find_user_by_username(username) is not None:
-            self._alert("images/Frame 42.png"); return
-        if not pin.isdigit() or len(pin) != 6:
-            self._alert("images/Frame 29.png"); return
-        if (not norek.isdigit() or len(norek) != 11
-                or self._db.find_user_by_norek(norek) is not None):
-            self._alert("images/Frame 35.png"); return
-        if not depo.isdigit() or int(depo) < 150000:
-            self._alert("images/Frame 40.png"); return
+            self._show_text_alert("Anda harus menyetujui\nSyarat dan Ketentuan."); return
+            
+        ok, msg = validate_username(username)
+        if not ok: self._show_text_alert(msg); return
+        if self._db.find_user_by_username(username) is not None:
+            self._show_text_alert("Username sudah digunakan."); return
+            
+        ok, msg = validate_email(email)
+        if not ok: self._show_text_alert(msg); return
+        
+        ok, msg = validate_password(password_raw)
+        if not ok: self._show_text_alert(msg); return
+        
+        ok, msg = validate_pin(pin)
+        if not ok: self._show_text_alert(msg); return
+        
+        ok, msg = validate_norek(norek)
+        if not ok: self._show_text_alert(msg); return
+        if self._db.find_user_by_norek(norek) is not None:
+            self._show_text_alert("Nomor Rekening sudah digunakan."); return
+            
+        ok, val, msg = validate_nominal(depo, min_amount=150000)
+        if not ok: self._show_text_alert(msg); return
 
-        self._show_otp_confirm(username, email, password_raw, pin, norek, int(depo))
+        self._show_otp_confirm(username, email, password_raw, pin, norek, val)
 
     def _show_otp_confirm(self, username, email, password_raw, pin, norek, depo):
         L = self._L
@@ -312,6 +338,7 @@ class SignupView:
         nomor_kartu = generate_card_number()
         self._db.create_user(username=username, password=password, balance=depo,
                              pin=pin, norek=norek, nomor_kartu=nomor_kartu, email=email)
+        log_signup(username, norek)
         frame_otp.destroy()
         self._window.destroy()
         self._parent.deiconify()

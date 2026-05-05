@@ -7,7 +7,6 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 
 def main():
-    # Inisialisasi database dengan error handling
     try:
         from src.database import Database
         db = Database()
@@ -25,7 +24,6 @@ def main():
 
     root = tk.Tk()
 
-    # Preload gambar yang sering dipakai ke cache RAM
     from src.image_cache import ImageCache, COMMON_IMAGES
     ImageCache.preload(COMMON_IMAGES)
 
